@@ -29,7 +29,9 @@ class _FreeTrialScreenState extends State<FreeTrialScreen> {
                       width: 310,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.close,
                         color: Colors.black,

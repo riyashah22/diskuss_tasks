@@ -1,8 +1,9 @@
+import 'package:diskuss_task/screens/Categories/contact_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:diskuss_task/screens/Analytics/analytics.dart';
 import 'package:diskuss_task/screens/Home/home_page.dart';
-import 'package:diskuss_task/screens/Network/network_screen.dart';
 import 'package:diskuss_task/screens/Settings/settings_screen.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -18,17 +19,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       extendBody: true, // Extends body behind the bottom app bar
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.black.withOpacity(.9),
-        title: Text('Diskuss', style: TextStyle(color: Colors.white)),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: Colors.black.withOpacity(.9),
+      //   title: Text('Diskuss', style: TextStyle(color: Colors.white)),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.notifications, color: Colors.white),
+      //       onPressed: () {},
+      //     ),
+      //   ],
+      // ),
       body: PageView(
         controller: pageController,
         onPageChanged: (int index) {
@@ -39,7 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: <Widget>[
           Center(child: HomeScreen()),
           Center(
-            child: NetworkScreen(),
+            child: ContactScreen(),
           ),
           Center(
             child: AnalyticsScrren(),
@@ -65,11 +66,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SimpleBarcodeScannerPage(),
+                ));
+          },
           backgroundColor: Colors
               .transparent, // Set background color to transparent to see the gradient
           elevation: 0, // Optional: remove shadow
-          child: const Icon(size: 40, Icons.document_scanner_outlined),
+          child: const Icon(
+            size: 40,
+            Icons.document_scanner_outlined,
+            color: Colors.white,
+          ),
         ),
       ),
 
@@ -88,9 +99,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             iconSize: 16, // Adjusted icon size for better visuals
             type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.blue, // Adjust selected color
+            selectedItemColor: Colors.white, // Adjust selected color
             unselectedItemColor: Colors.grey,
-            backgroundColor: Colors.transparent, // No additional color
+            backgroundColor: Colors.black, // No additional color
             onTap: (index) {
               setState(() {
                 _selectedIndex = index;
