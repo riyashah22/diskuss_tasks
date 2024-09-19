@@ -59,7 +59,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             right: 0,
             height: 300,
             child: Container(
-              color: Colors.blue,
+              color: Color(0xff003566),
               child: Column(
                 children: [
                   SizedBox(
@@ -155,6 +155,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     return Transform.scale(
       scale: 0.95,
       child: Card(
+        color: Color(0xffffeedd),
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -219,7 +220,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color(0xff003566),
                   ),
                   child: Text(
                     "Continue",
@@ -260,7 +261,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
           width: _currentPage == index ? 12 : 8,
           height: 8,
           decoration: BoxDecoration(
-            color: _currentPage == index ? Colors.blue : Colors.grey,
+            color: _currentPage == index ? Color(0xff003566) : Colors.grey,
             borderRadius: BorderRadius.circular(4),
           ),
         );
@@ -278,7 +279,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: Colors.black54,
+              color: Color(0xff003566),
             ),
           ),
           SizedBox(height: 8),

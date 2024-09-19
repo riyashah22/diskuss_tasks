@@ -17,7 +17,31 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Contact List')),
+      appBar: AppBar(
+        title: const Text(
+          'Contact List',
+          style: TextStyle(color: Colors.white), // Set text color to white
+        ),
+        backgroundColor:
+            Colors.transparent, // Make the AppBar background transparent
+        elevation: 0, // Remove shadow for a smoother gradient effect
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,
+              color: Colors.white), // Set back arrow color to white
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.black, Colors.blue[900]!],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       body: BlocBuilder<ContactListBloc, ContactListState>(
         builder: (context, state) {
           if (state is ContactListUpdated && state.contacts.isNotEmpty) {
@@ -37,6 +61,8 @@ class _ContactScreenState extends State<ContactScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff002855),
+        foregroundColor: Colors.white,
         onPressed: () => showAddDialog(context),
         child: const Icon(Icons.add),
       ),

@@ -28,7 +28,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Generate Text"),
+        title: Text("Chatbot"),
       ),
       body: buildUI(),
     );

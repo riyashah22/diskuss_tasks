@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:diskuss_task/screens/Categories/contact_screen.dart';
+import 'package:diskuss_task/screens/Categories/meetings.dart';
 import 'package:diskuss_task/screens/Reference/reference_screen.dart';
 import 'package:diskuss_task/screens/Subscription/main_subscription.dart';
 import 'package:diskuss_task/screens/chatbot/chatbot.dart';
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 350,
+              height: 380,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
@@ -83,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 24),
                   Container(width: 350, child: _buildFlipBusinessCard()),
                 ],
               ),
@@ -149,20 +151,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
-            ListView.builder(
-              shrinkWrap:
-                  true, // Important to ensure it works within the scrollable area
-              physics:
-                  NeverScrollableScrollPhysics(), // Prevents inner scrolling conflict
-              itemCount: _reminders.length,
-              itemBuilder: (context, index) {
-                final reminder = _reminders[index];
-                return ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.person)),
-                  title: Text(reminder["name"]!),
-                  subtitle: Text(reminder["time"]!),
-                );
-              },
+            Container(
+              child: ListView.builder(
+                shrinkWrap:
+                    true, // Important to ensure it works within the scrollable area
+                physics:
+                    NeverScrollableScrollPhysics(), // Prevents inner scrolling conflict
+                itemCount: _reminders.length,
+                itemBuilder: (context, index) {
+                  final reminder = _reminders[index];
+                  return ListTile(
+                    leading: CircleAvatar(child: Icon(Icons.person)),
+                    title: Text(reminder["name"]!),
+                    subtitle: Text(reminder["time"]!),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -324,7 +328,13 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _buildCategoryItem("Themes", Icons.image, Colors.blue[100]!),
-        _buildCategoryItem("Meetings", Icons.videocam, Colors.black),
+        GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MeetingScreen()));
+            },
+            child:
+                _buildCategoryItem("Meetings", Icons.videocam, Colors.black)),
         GestureDetector(
           child:
               _buildCategoryItem("Contacts", Icons.contact_phone, Colors.black),

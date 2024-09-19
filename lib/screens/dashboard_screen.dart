@@ -1,4 +1,5 @@
 import 'package:diskuss_task/screens/Categories/contact_screen.dart';
+import 'package:diskuss_task/screens/Network/network_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:diskuss_task/screens/Analytics/analytics.dart';
 import 'package:diskuss_task/screens/Home/home_page.dart';
@@ -40,10 +41,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: <Widget>[
           Center(child: HomeScreen()),
           Center(
-            child: ContactScreen(),
+            child: NetworkScreen(),
           ),
           Center(
-            child: AnalyticsScrren(),
+            child: AnalyticsScreen(),
           ),
           Center(
             child: SettingsScreen(),

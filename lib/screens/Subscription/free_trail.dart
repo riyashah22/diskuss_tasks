@@ -17,7 +17,8 @@ class _FreeTrialScreenState extends State<FreeTrialScreen> {
             height: 280,
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12), color: Colors.blue),
+                borderRadius: BorderRadius.circular(12),
+                color: Color(0xff003566)),
             child: Column(
               children: [
                 SizedBox(
@@ -45,7 +46,10 @@ class _FreeTrialScreenState extends State<FreeTrialScreen> {
                 ),
                 Text(
                   "Start A Free Trial Now",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 )
               ],

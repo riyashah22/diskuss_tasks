@@ -43,6 +43,9 @@ dependencies:
   dash_chat_2: ^0.0.21
   flutter_gemini: ^2.0.5
   uuid: ^4.5.0
+  bar_chart: ^1.0.0+1
+  fl_chart: ^0.69.0
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
