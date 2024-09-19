@@ -4,6 +4,7 @@ import 'package:diskuss_task/bloc/contact_bloc.dart';
 import 'package:diskuss_task/bloc/contact_event.dart';
 import 'package:diskuss_task/bloc/contact_state.dart';
 import 'package:diskuss_task/models/contact.dart';
+import 'package:uuid/uuid.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -53,10 +54,10 @@ class _ContactScreenState extends State<ContactScreen> {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // IconButton(
-          //   icon: const Icon(Icons.edit),
-          //   onPressed: () => showEditDialog(context, contact),
-          // ),
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () => showEditDialog(context, contact),
+          ),
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
@@ -72,6 +73,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
   // Dialog to add a new contact
   void showAddDialog(BuildContext context) {
+    final uuid = Uuid();
     final nameController = TextEditingController();
     final phoneController = TextEditingController();
 
@@ -103,8 +105,10 @@ class _ContactScreenState extends State<ContactScreen> {
                 // Add contact using BLoC
                 context.read<ContactListBloc>().add(
                       AddContact(
-                          contact:
-                              Contact(name: name, phoneNumber: phoneNumber)),
+                          contact: Contact(
+                              id: uuid.v4(),
+                              name: name,
+                              phoneNumber: phoneNumber)),
                     );
 
                 Navigator.pop(context); // Close the dialog after adding
@@ -118,49 +122,53 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   // Dialog to edit an existing contact
-  // void showEditDialog(BuildContext context, Contact contact) {
-  //   final nameController = TextEditingController(text: contact.name);
-  //   final phoneController = TextEditingController(text: contact.phoneNumber);
+  void showEditDialog(BuildContext context, Contact contact) {
+    final nameController = TextEditingController(text: contact.name);
+    final phoneController = TextEditingController(text: contact.phoneNumber);
 
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: const Text('Edit Contact'),
-  //       content: Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: [
-  //           TextField(
-  //             controller: nameController,
-  //             decoration: const InputDecoration(labelText: 'Name'),
-  //           ),
-  //           TextField(
-  //             controller: phoneController,
-  //             decoration: const InputDecoration(labelText: 'Phone Number'),
-  //           ),
-  //         ],
-  //       ),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () {
-  //             if (nameController.text.isNotEmpty &&
-  //                 phoneController.text.isNotEmpty) {
-  //               final updatedName = nameController.text;
-  //               final updatedPhoneNumber = phoneController.text;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Edit Contact'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(labelText: 'Name'),
+            ),
+            TextField(
+              controller: phoneController,
+              decoration: const InputDecoration(labelText: 'Phone Number'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (nameController.text.isNotEmpty &&
+                  phoneController.text.isNotEmpty) {
+                final updatedName = nameController.text;
+                final updatedPhoneNumber = phoneController.text;
 
-  //               // Update the contact using BLoC
-  //               context.read<ContactListBloc>().add(
-  //                 UpdateContact(
-  //                   contact: Contact(name: updatedName, phoneNumber: updatedPhoneNumber),
-  //                 ),
-  //               );
+                // Trigger the UpdateContact event with the same ID
+                context.read<ContactListBloc>().add(
+                      UpdateContact(
+                        contact: Contact(
+                          id: contact.id, // Keep the same ID
+                          name: updatedName,
+                          phoneNumber: updatedPhoneNumber,
+                        ),
+                      ),
+                    );
 
-  //               Navigator.pop(context); // Close the dialog after editing
-  //             }
-  //           },
-  //           child: const Text('Save'),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+                Navigator.pop(context); // Close the dialog after editing
+              }
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+  }
 }
